@@ -1,19 +1,593 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- activity_order.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu">
+    tools:context=".OrderActivity">
 
-    <TextView
-        android:id="@+id/table_name"
-        android:layout_width="wrap_content"
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="..."
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+    <!-- Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout">
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Appetizers Section -->
+            <LinearLayout
+                android:id="@+id/appetizersLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/appetizersHeadingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Appetizers"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Appetizer 1 -->
+                <LinearLayout
+                    android:id="@+id/appetizer1Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/appetizer1ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/appetizer1NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nachos"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/appetizer1DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Crispy tortilla chips topped with melted cheese, salsa, and jalapenos."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/appetizer1PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$6.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonAppetizer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Appetizer 2 -->
+                <LinearLayout
+                    android:id="@+id/appetizer2Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/appetizer2ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/appetizer2NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chicken Wings"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/appetizer2DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Crispy and spicy chicken wings served with a choice of dipping sauces."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/appetizer2PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$8.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonAppetizer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Add more appetizers here -->
+
+            </LinearLayout>
+
+            <!-- Main Dishes Section -->
+            <LinearLayout
+                android:id="@+id/mainDishesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/mainDishesHeadingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Main Dishes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Main Dish 1 -->
+                <LinearLayout
+                    android:id="@+id/mainDish1Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/mainDish1ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/mainDish1NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cheeseburger"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/mainDish1DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="A classic cheeseburger with a juicy patty, melted cheese, lettuce, tomato, and pickles."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/mainDish1PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$5.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonMainDish1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Main Dish 2 -->
+                <LinearLayout
+                    android:id="@+id/mainDish2Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/mainDish2ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/mainDish2NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chicken Nuggets"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/mainDish2DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Crispy and tender chicken nuggets served with a choice of dipping sauces."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/mainDish2PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$6.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonMainDish2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Add more main dishes here -->
+
+            </LinearLayout>
+
+            <!-- Desserts Section -->
+            <LinearLayout
+                android:id="@+id/dessertsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/dessertsHeadingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Desserts"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Dessert 1 -->
+                <LinearLayout
+                    android:id="@+id/dessert1Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/dessert1ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/dessert1NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chocolate Sundae"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/dessert1DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rich and creamy chocolate sundae topped with whipped cream and a cherry."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/dessert1PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$3.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonDessert1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Dessert 2 -->
+                <LinearLayout
+                    android:id="@+id/dessert2Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/dessert2ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/dessert2NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apple Pie"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/dessert2DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Warm apple pie with a flaky crust, served with a scoop of vanilla ice cream."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/dessert2PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$4.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonDessert2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Add more desserts here -->
+
+            </LinearLayout>
+
+            <!-- Drinks Section -->
+            <LinearLayout
+                android:id="@+id/drinksLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/drinksHeadingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Drinks"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Drink 1 -->
+                <LinearLayout
+                    android:id="@+id/drink1Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/drink1ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/drink1NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Coca-Cola"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/drink1DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Refreshing cola drink with a fizzy taste."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/drink1PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$1.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonDrink1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Drink 2 -->
+                <LinearLayout
+                    android:id="@+id/drink2Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:id="@+id/drink2ImageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/tacobell"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/drink2NameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Iced Coffee"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"/>
+
+                        <TextView
+                            android:id="@+id/drink2DescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chilled coffee beverage with a hint of sweetness and a splash of milk."
+                            android:paddingStart="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/drink2PriceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$2.99"
+                            android:textStyle="bold"
+                            android:paddingStart="16dp"
+                            android:paddingBottom="8dp"/>
+
+                        <!-- Add to Cart Button -->
+                        <Button
+                            android:id="@+id/addToCartButtonDrink2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add to Cart"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Add more drinks here -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+</RelativeLayout>
