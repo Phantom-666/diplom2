@@ -17,8 +17,6 @@ class Menu : AppCompatActivity() {
         return (this * scale + 0.5f).toInt()
     }
 
-
-
     private fun parse(obj_str :String) : ProductClass {
         val result = obj_str.replace("{", "").replace("}", "").split(", ")
 
@@ -118,9 +116,6 @@ class Menu : AppCompatActivity() {
 
         val category = intent.getStringExtra("category")
         val firebase = FirebaseDatabase.getInstance().getReference(category!!)
-
-        Log.d("Marker1", category)
-
 
         firebase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

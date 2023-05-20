@@ -56,6 +56,8 @@ class ResMain : AppCompatActivity() {
 
     private var fullPrice= 0
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -102,4 +104,6 @@ class ResMain : AppCompatActivity() {
 
         }
     }
+
+
 }
