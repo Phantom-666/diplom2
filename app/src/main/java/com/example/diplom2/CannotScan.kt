@@ -17,7 +17,7 @@ class CannotScan : AppCompatActivity() {
         val submitTableNumber = findViewById<Button>(R.id.submit_table_number)
 
         submitTableNumber.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, ResMain::class.java)
             intent.putExtra("table number", tableNameInput.text.toString())
             intent.putExtra("type", "qrcode")
             startActivity(intent)

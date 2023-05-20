@@ -14,7 +14,7 @@ class RestaurantRoute : AppCompatActivity() {
         val homeDeliveryButton = findViewById<Button>(R.id.home_delivery_res)
 
         homeDeliveryButton.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, ResMain::class.java)
             intent.putExtra("type", "home")
             startActivity(intent)
         }

@@ -25,7 +25,7 @@ class QrCode : AppCompatActivity() {
 
         val fakeScan = findViewById<Button>(R.id.fake_scan)
         fakeScan.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, ResMain::class.java)
             intent.putExtra("table number", "1")
             intent.putExtra("type", "qrcode")
             startActivity(intent)
@@ -51,7 +51,7 @@ class QrCode : AppCompatActivity() {
                         tableNumber += contents[i]
                     }
                 }
-                val intent = Intent(this, Menu::class.java)
+                val intent = Intent(this, ResMain::class.java)
                 intent.putExtra("table number", tableNumber)
                 intent.putExtra("type", "qrcode")
                 startActivity(intent)
