@@ -1,9 +1,12 @@
 package com.example.diplom2
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -13,9 +16,13 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class Checkout : AppCompatActivity() {
+
+
+class Orders : AppCompatActivity() {
 
     private lateinit var  dataStore : DataStore<Preferences>
+    private lateinit var ordersListView: ListView
+    private lateinit var noOrdersTextView: TextView
 
 
     private suspend fun save(key : String, value : String) {
@@ -35,33 +42,37 @@ class Checkout : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_checkout)
+        setContentView(R.layout.activity_orders)
+
+
         dataStore = createDataStore(name = "orders")
 
-        val price = intent.getStringExtra("price")
-        val type = intent.getStringExtra("type")
+        ordersListView = findViewById(R.id.ordersListView)
+        noOrdersTextView = findViewById(R.id.noOrdersTextView)
 
-        val goHomeButton = findViewById<Button>(R.id.goHomeButton)
 
-        goHomeButton.setOnClickListener {
+        lifecycleScope.launch {
+            val current = read("orders")
 
-            lifecycleScope.launch {
+            val orders = mutableListOf<String>() // Пример списка заказов
 
-                val current = read("orders")
+            if (current != null || current != "") {
+                val splitted = current?.split('\n')
 
-                if (current == null || current.trim() == "") {
-                    save("orders", "Заказ : $price₽")
-                } else {
-                    save("orders", "Заказ : $price₽\n$current")
+                splitted?.map {
+                    orders.add(it)
                 }
             }
 
+            val adapter = ArrayAdapter(this@Orders, android.R.layout.simple_list_item_1, orders)
+            ordersListView.adapter = adapter
 
-            val intent = Intent(this, MainActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+            if (orders.isEmpty()) {
+                ordersListView.visibility = View.GONE
+                noOrdersTextView.visibility = View.VISIBLE
+            }
+
+
         }
-
-
     }
 }

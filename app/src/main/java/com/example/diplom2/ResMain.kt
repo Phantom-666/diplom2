@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 
 class ResMain : AppCompatActivity() {
@@ -29,10 +30,17 @@ class ResMain : AppCompatActivity() {
         val tableName = intent.getStringExtra("table number")
         val tableNameTextView= findViewById<TextView>(R.id.table_name)
 
+        val robot_delivery = findViewById<LinearLayout>(R.id.robot_delivery)
+
         if (type == "home")
+        {
             tableNameTextView.text = "Доставка на дом"
-        else
+            robot_delivery.visibility = View.GONE
+        }
+        else {
             tableNameTextView.text = "Ваш столик под номером $tableName"
+            robot_delivery.visibility = View.VISIBLE
+        }
 
         categoryListView = findViewById(R.id.categoryListView)
 
@@ -41,14 +49,61 @@ class ResMain : AppCompatActivity() {
 
         categoryListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val category = parent.getItemAtPosition(position) as String
-//            Toast.makeText(this, "Выбрана категория: $category", Toast.LENGTH_SHORT).show()
-            // Здесь можно добавить код для перехода на экран с блюдами выбранной категории
 
             if (category === "Новинки") {
                 val intent = Intent(this, Menu::class.java)
                 intent.putExtra("category", "new-products")
                 startActivityForResult(intent, 0)
             }
+            else if (category === "Бургеры") {
+                val intent = Intent(this, Menu::class.java)
+                intent.putExtra("category", "burgers")
+                startActivityForResult(intent, 0)
+            }
+            else if (category === "Супы") {
+                val intent = Intent(this, Menu::class.java)
+                intent.putExtra("category", "soups")
+                startActivityForResult(intent, 0)
+            }
+            else if (category === "Салаты") {
+                val intent = Intent(this, Menu::class.java)
+                intent.putExtra("category", "salads")
+                startActivityForResult(intent, 0)
+            }
+            else if (category === "Десерты") {
+                val intent = Intent(this, Menu::class.java)
+                intent.putExtra("category", "dessert")
+                startActivityForResult(intent, 0)
+            }
+
+        }
+
+
+        val myCheckbox = findViewById<CheckBox>(R.id.checkboxOverlay)
+
+
+
+        myCheckbox.setOnClickListener{
+
+            val cartItems = mutableListOf<String>()
+            val cartAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cartItems)
+
+            val cartListView = findViewById<ListView>(R.id.cartListView)
+            cartListView.adapter = cartAdapter
+
+            if (myCheckbox.isChecked) {
+                // Checkbox is checked
+                fullPrice += 300
+
+            } else {
+                // Checkbox is not checked
+                fullPrice -= 300
+            }
+
+            val itemToAdd = "Заказ на $fullPrice₽"
+            cartItems.add(itemToAdd)
+            cartAdapter.notifyDataSetChanged()
+
 
         }
 

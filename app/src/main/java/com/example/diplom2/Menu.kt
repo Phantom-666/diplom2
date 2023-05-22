@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.widget.*
+import coil.load
 import com.google.firebase.database.*
 
 class Menu : AppCompatActivity() {
@@ -23,6 +24,8 @@ class Menu : AppCompatActivity() {
         var price: Int = -1
         var name : String = ""
         var id : String = ""
+        var image : String = ""
+        var about : String = ""
 
         for (c in result) {
 
@@ -34,19 +37,24 @@ class Menu : AppCompatActivity() {
             else if (c.contains("id")) {
                 id = c.replace("id=", "")
             }
+            else if (c.contains("image")) {
+                image = c.replace("image=", "")
+            }
+            else if (c.contains("about")) {
+                about = c.replace("about=", "")
+            }
 
 
         }
 
-        return ProductClass(id, name, price)
+        return ProductClass(id, name, price, image, about)
     }
 
-    private fun addBlock(name :String, price : Number, about : String) {
+    private fun addBlock(name :String, price : Number, image :String, about : String) {
 
         val mainLayout = findViewById<LinearLayout>(R.id.appetizerLayout)
         val linearLayout = LinearLayout(this)
         linearLayout.orientation = LinearLayout.HORIZONTAL
-
 
         linearLayout.setOnClickListener {
             val resultIntent = Intent()
@@ -64,7 +72,8 @@ class Menu : AppCompatActivity() {
         linearLayout.layoutParams = layoutParams
 
         val imageView = ImageView(this)
-        imageView.setImageResource(R.drawable.tacobell)
+        imageView.load(image)
+
         val imageParams = LinearLayout.LayoutParams(
             100.dpToPx(),
             100.dpToPx()
@@ -94,14 +103,9 @@ class Menu : AppCompatActivity() {
         priceTextView.setTypeface(null, Typeface.BOLD)
         priceTextView.setPadding(16.dpToPx(), 0, 0, 8.dpToPx())
 
-        val addToCartButton = Button(this)
-        addToCartButton.text = "Add to Cart"
-        addToCartButton.setPadding(16.dpToPx(), 0, 16.dpToPx(), 0)
-
         innerLinearLayout.addView(nameTextView)
         innerLinearLayout.addView(descriptionTextView)
         innerLinearLayout.addView(priceTextView)
-        innerLinearLayout.addView(addToCartButton)
 
         linearLayout.addView(imageView)
         linearLayout.addView(innerLinearLayout)
@@ -123,7 +127,7 @@ class Menu : AppCompatActivity() {
                 if (snapshot.exists() && snapshot.hasChildren()) {
                     for (product in snapshot.children) {
                         val p = parse(product.getValue().toString())
-                        addBlock(p.name, p.price, "\"Crispy tortilla chips topped with melted cheese, salsa, and jalapenos.\"")
+                        addBlock(p.name, p.price, p.image, p.about)
                     }
 
                 }

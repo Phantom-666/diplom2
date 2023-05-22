@@ -18,58 +18,27 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 //TODO: Проложить путь
-//TODO: Draw Icon for restaurant
 //TODO: Check scan
-//TODO: Заказы
-//TODO: add about and images for products
-//TODO: create categories for db
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var  dataStore : DataStore<Preferences>
-
-
-    private suspend fun save(key : String, value : String) {
-        val dataStoreKey = preferencesKey<String>(key)
-        dataStore.edit { settings ->
-            settings[dataStoreKey] = value
-        }
-    }
-
-    private suspend fun read(key : String) :String? {
-        val dataStoreKey = preferencesKey<String>(key)
-        val preferences = dataStore.data.first()
-
-        return preferences[dataStoreKey]
-
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dataStore = createDataStore(name = "orders")
-
-
-        lifecycleScope.launch {
-            val current = read("orders")
-
-//            Toast.makeText(this, current, Toast.LENGTH_LONG).show()
-
-            Log.d("work", current ?: "got nothing")
-
-        }
-
-
-
         MapKitFactory.setApiKey("22f07aaf-73dd-49eb-8908-b44fa12347c4")
 
         val mapButton = findViewById<Button>(R.id.map_button)
 
-//        val firebase = FirebaseDatabase.getInstance().getReference("new-products")
+//        val firebase = FirebaseDatabase.getInstance().getReference("dessert")
 //        val id = firebase.push().key!!
-//        val product = ProductClass(id, "Добрый Кола Апельсин", 95)
+//
+//        val product = ProductClass(id,
+//            "Мороженое Карамельное",
+//            84 ,
+//            "https://vkusnoitochka.ru/resize/290x286/upload/iblock/25c/fib56dzowg2qt8sr6phpqv8arhabjfl1/large.png",
+//            "Мороженое из натурального цельного молока с добавкой карамельного наполнителя")
+//
 //        firebase.child(id).setValue(product).addOnCompleteListener {
 //            Toast.makeText(this, "Done", Toast.LENGTH_LONG).show()
 //        }.addOnFailureListener { err ->
@@ -80,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Map::class.java)
             startActivity(intent)
         }
+
 
         val qrCodeButton = findViewById<Button>(R.id.qr_code_button)
 
@@ -93,6 +63,14 @@ class MainActivity : AppCompatActivity() {
         homeDelivery.setOnClickListener {
             val intent = Intent(this, ResMain::class.java)
             intent.putExtra("type", "home")
+            startActivity(intent)
+        }
+
+
+        val ordersTabButton = findViewById<Button>(R.id.ordersTabButton)
+
+        ordersTabButton.setOnClickListener {
+            val intent = Intent(this, Orders::class.java)
             startActivity(intent)
         }
 

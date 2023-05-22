@@ -60,4 +60,8 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    implementation 'io.coil-kt:coil:1.4.0'
+
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }

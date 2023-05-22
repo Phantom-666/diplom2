@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Diplom2">
         <activity
+            android:name=".Orders"
+            android:exported="false" />
+        <activity
             android:name=".SpecifyAddress"
             android:exported="false" />
         <activity

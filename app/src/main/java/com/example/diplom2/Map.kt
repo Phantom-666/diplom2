@@ -71,12 +71,9 @@ class Map : AppCompatActivity()  {
 
         mapview.map.mapObjects.addTapListener(tabListener)
 
-        val bitmap = this.getBitmapFromVectorDrawable(R.drawable.ic_launcher_foreground)
+        val bitmap = this.getBitmapFromVectorDrawable(R.drawable.res_trans_50)
         this.placemark = mapview.map.mapObjects.addPlacemark(Target, ImageProvider.fromBitmap(bitmap))
         this.placemark.addTapListener(this.tabListener)
-
-
-
 
     }
 
