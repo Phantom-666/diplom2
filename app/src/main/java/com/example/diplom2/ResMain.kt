@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 
+@Suppress("DEPRECATION")
 class ResMain : AppCompatActivity() {
 
     private lateinit var categoryListView: ListView
@@ -30,16 +31,18 @@ class ResMain : AppCompatActivity() {
         val tableName = intent.getStringExtra("table number")
         val tableNameTextView= findViewById<TextView>(R.id.table_name)
 
-        val robot_delivery = findViewById<LinearLayout>(R.id.robot_delivery)
+        val robotDelivery = findViewById<LinearLayout>(R.id.robot_delivery)
 
         if (type == "home")
         {
             tableNameTextView.text = "Доставка на дом"
-            robot_delivery.visibility = View.GONE
+            robotDelivery.visibility = View.GONE
         }
         else {
-            tableNameTextView.text = "Ваш столик под номером $tableName"
-            robot_delivery.visibility = View.VISIBLE
+            val tableNameTextViewText = "Ваш столик под номером $tableName"
+
+            tableNameTextView.text = tableNameTextViewText
+            robotDelivery.visibility = View.VISIBLE
         }
 
         categoryListView = findViewById(R.id.categoryListView)
@@ -47,44 +50,28 @@ class ResMain : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
         categoryListView.adapter = adapter
 
-        categoryListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        categoryListView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val category = parent.getItemAtPosition(position) as String
+            val intent = Intent(this, Menu::class.java)
 
-            if (category === "Новинки") {
-                val intent = Intent(this, Menu::class.java)
+            if (category === "Новинки")
                 intent.putExtra("category", "new-products")
-                startActivityForResult(intent, 0)
-            }
-            else if (category === "Бургеры") {
-                val intent = Intent(this, Menu::class.java)
+            else if (category === "Бургеры")
                 intent.putExtra("category", "burgers")
-                startActivityForResult(intent, 0)
-            }
-            else if (category === "Супы") {
-                val intent = Intent(this, Menu::class.java)
+            else if (category === "Супы")
                 intent.putExtra("category", "soups")
-                startActivityForResult(intent, 0)
-            }
-            else if (category === "Салаты") {
-                val intent = Intent(this, Menu::class.java)
+            else if (category === "Салаты")
                 intent.putExtra("category", "salads")
-                startActivityForResult(intent, 0)
-            }
-            else if (category === "Десерты") {
-                val intent = Intent(this, Menu::class.java)
+            else if (category === "Десерты")
                 intent.putExtra("category", "dessert")
-                startActivityForResult(intent, 0)
-            }
 
+            startActivityForResult(intent, 0)
         }
 
 
         val myCheckbox = findViewById<CheckBox>(R.id.checkboxOverlay)
 
-
-
         myCheckbox.setOnClickListener{
-
             val cartItems = mutableListOf<String>()
             val cartAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cartItems)
 
@@ -103,21 +90,19 @@ class ResMain : AppCompatActivity() {
             val itemToAdd = "Заказ на $fullPrice₽"
             cartItems.add(itemToAdd)
             cartAdapter.notifyDataSetChanged()
-
-
         }
-
     }
 
     private var fullPrice= 0
 
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-                val name = data?.getStringExtra("name")
+//                val name = data?.getStringExtra("name")
                 val price = data?.getStringExtra("price")!!.toInt()
                 val cartItems = mutableListOf<String>()
 

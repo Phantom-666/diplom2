@@ -1,25 +1,18 @@
 package com.example.diplom2
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.DrawableRes
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -30,10 +23,11 @@ import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
 import com.yandex.runtime.image.ImageProvider
 
+@Suppress("DEPRECATION")
 class Map : AppCompatActivity()  {
 
-    private lateinit var mapview : MapView;
-    private lateinit var mapObjects :MapObjectCollection;
+    private lateinit var mapview : MapView
+    private lateinit var mapObjects :MapObjectCollection
 
     private val tabListener : MapObjectTapListener = MapObjectTapListener { _, _ ->
         val intent = Intent(this, RestaurantRoute::class.java)
@@ -41,7 +35,7 @@ class Map : AppCompatActivity()  {
         true
     }
 
-    private lateinit var placemark :  PlacemarkMapObject;
+    private lateinit var placemark :  PlacemarkMapObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,30 +43,26 @@ class Map : AppCompatActivity()  {
 
         MapKitFactory.initialize(this)
 
-        val Target = Point(59.905218, 30.377888)
+        val targetLocation = Point(59.905218, 30.377888)
 
         mapview = findViewById<View>(R.id.mapview) as MapView
         mapview.map.move(
-            CameraPosition(Target, 14.0f, 0.0f, 0.0f),
+            CameraPosition(targetLocation, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 0F),
             null
         )
 
-        var mapkit = MapKitFactory.getInstance()
+        val mapkit = MapKitFactory.getInstance()
 
         checkLocationPermission()
         val l = mapkit.createUserLocationLayer(mapview.mapWindow)
 
         l.isVisible = true
-
-
         mapObjects = mapview.map.mapObjects.addCollection()
-
-
         mapview.map.mapObjects.addTapListener(tabListener)
 
         val bitmap = this.getBitmapFromVectorDrawable(R.drawable.res_trans_50)
-        this.placemark = mapview.map.mapObjects.addPlacemark(Target, ImageProvider.fromBitmap(bitmap))
+        this.placemark = mapview.map.mapObjects.addPlacemark(targetLocation, ImageProvider.fromBitmap(bitmap))
         this.placemark.addTapListener(this.tabListener)
 
     }
@@ -87,6 +77,7 @@ class Map : AppCompatActivity()  {
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -95,20 +86,13 @@ class Map : AppCompatActivity()  {
 
             if (action == "make_route") {
                 Toast.makeText(this, "Прокладываю путь", Toast.LENGTH_LONG).show()
-
-
             }
-
-
-
-
         }
     }
 
     private fun checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
-
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -170,11 +154,7 @@ class Map : AppCompatActivity()  {
     }
 
     private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap? {
-        var drawable = ContextCompat.getDrawable(this, drawableId) ?: return null
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = DrawableCompat.wrap(drawable).mutate()
-        }
+        val drawable = ContextCompat.getDrawable(this, drawableId) ?: return null
 
         val bitmap = Bitmap.createBitmap(
             drawable.intrinsicWidth,

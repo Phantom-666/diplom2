@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.google.zxing.integration.android.IntentIntegrator
-import com.google.zxing.integration.android.IntentResult
-import kotlin.collections.Map
 
+@Suppress("DEPRECATION")
 class QrCode : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +37,10 @@ class QrCode : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        var intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        val intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         if (intentResult != null) {
             val contents = intentResult.contents

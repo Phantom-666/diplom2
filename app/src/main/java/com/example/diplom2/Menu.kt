@@ -22,10 +22,10 @@ class Menu : AppCompatActivity() {
         val result = obj_str.replace("{", "").replace("}", "").split(", ")
 
         var price: Int = -1
-        var name : String = ""
-        var id : String = ""
-        var image : String = ""
-        var about : String = ""
+        var name = ""
+        var id = ""
+        var image = ""
+        var about = ""
 
         for (c in result) {
 
@@ -99,7 +99,9 @@ class Menu : AppCompatActivity() {
         descriptionTextView.setPadding(16.dpToPx(), 4.dpToPx(), 16.dpToPx(), 8.dpToPx())
 
         val priceTextView = TextView(this)
-        priceTextView.text = "$price₽"
+
+        val priceTextViewText = "$price₽"
+        priceTextView.text = priceTextViewText
         priceTextView.setTypeface(null, Typeface.BOLD)
         priceTextView.setPadding(16.dpToPx(), 0, 0, 8.dpToPx())
 
@@ -117,7 +119,6 @@ class Menu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-
         val category = intent.getStringExtra("category")
         val firebase = FirebaseDatabase.getInstance().getReference(category!!)
 
@@ -126,19 +127,15 @@ class Menu : AppCompatActivity() {
 
                 if (snapshot.exists() && snapshot.hasChildren()) {
                     for (product in snapshot.children) {
-                        val p = parse(product.getValue().toString())
+                        val p = parse(product.value.toString())
                         addBlock(p.name, p.price, p.image, p.about)
                     }
-
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.d("Marker1", "Not implemented")
             }
         })
-
-
     }
 }

@@ -2,20 +2,17 @@ package com.example.diplom2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-
 
 
 class Orders : AppCompatActivity() {
@@ -24,42 +21,29 @@ class Orders : AppCompatActivity() {
     private lateinit var ordersListView: ListView
     private lateinit var noOrdersTextView: TextView
 
-
-    private suspend fun save(key : String, value : String) {
-        val dataStoreKey = preferencesKey<String>(key)
-        dataStore.edit { settings ->
-            settings[dataStoreKey] = value
-        }
-    }
-
     private suspend fun read(key : String) :String? {
         val dataStoreKey = preferencesKey<String>(key)
         val preferences = dataStore.data.first()
 
         return preferences[dataStoreKey]
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
 
-
         dataStore = createDataStore(name = "orders")
-
         ordersListView = findViewById(R.id.ordersListView)
         noOrdersTextView = findViewById(R.id.noOrdersTextView)
-
 
         lifecycleScope.launch {
             val current = read("orders")
 
-            val orders = mutableListOf<String>() // Пример списка заказов
+            val orders = mutableListOf<String>()
+            if (current != null && current != "") {
+                val split = current.split('\n')
 
-            if (current != null || current != "") {
-                val splitted = current?.split('\n')
-
-                splitted?.map {
+                split.map {
                     orders.add(it)
                 }
             }
@@ -71,8 +55,6 @@ class Orders : AppCompatActivity() {
                 ordersListView.visibility = View.GONE
                 noOrdersTextView.visibility = View.VISIBLE
             }
-
-
         }
     }
 }

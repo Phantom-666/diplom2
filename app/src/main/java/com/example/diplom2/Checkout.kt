@@ -17,7 +17,6 @@ class Checkout : AppCompatActivity() {
 
     private lateinit var  dataStore : DataStore<Preferences>
 
-
     private suspend fun save(key : String, value : String) {
         val dataStoreKey = preferencesKey<String>(key)
         dataStore.edit { settings ->
@@ -39,14 +38,12 @@ class Checkout : AppCompatActivity() {
         dataStore = createDataStore(name = "orders")
 
         val price = intent.getStringExtra("price")
-        val type = intent.getStringExtra("type")
+//        val type = intent.getStringExtra("type")
 
         val goHomeButton = findViewById<Button>(R.id.goHomeButton)
 
         goHomeButton.setOnClickListener {
-
             lifecycleScope.launch {
-
                 val current = read("orders")
 
                 if (current == null || current.trim() == "") {
@@ -61,7 +58,5 @@ class Checkout : AppCompatActivity() {
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
-
-
     }
 }
