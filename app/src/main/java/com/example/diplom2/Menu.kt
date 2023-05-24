@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.View
 import android.widget.*
 import coil.load
 import com.google.firebase.database.*
@@ -122,6 +123,9 @@ class Menu : AppCompatActivity() {
         val category = intent.getStringExtra("category")
         val firebase = FirebaseDatabase.getInstance().getReference(category!!)
 
+
+        val menuProgressBar = findViewById<ProgressBar>(R.id.menuProgressBar)
+
         firebase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -130,6 +134,8 @@ class Menu : AppCompatActivity() {
                         val p = parse(product.value.toString())
                         addBlock(p.name, p.price, p.image, p.about)
                     }
+
+                    menuProgressBar.visibility = View.GONE
                 }
             }
 

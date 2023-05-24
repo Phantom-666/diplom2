@@ -8,7 +8,6 @@ import com.yandex.mapkit.MapKitFactory
 
 //TODO: Проложить путь
 //TODO: Check scan
-//TODO: Add loader
 
 class MainActivity : AppCompatActivity() {
 //    private fun addToDatabase() {

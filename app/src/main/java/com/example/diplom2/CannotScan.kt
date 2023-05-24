@@ -19,7 +19,6 @@ class CannotScan : AppCompatActivity() {
             intent.putExtra("table number", tableNameInput.text.toString())
             intent.putExtra("type", "qrcode")
             startActivity(intent)
-
         }
     }
 }
