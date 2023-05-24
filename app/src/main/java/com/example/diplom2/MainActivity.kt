@@ -8,6 +8,7 @@ import com.yandex.mapkit.MapKitFactory
 
 //TODO: Проложить путь
 //TODO: Check scan
+//TODO: Add image icon
 
 class MainActivity : AppCompatActivity() {
 //    private fun addToDatabase() {
