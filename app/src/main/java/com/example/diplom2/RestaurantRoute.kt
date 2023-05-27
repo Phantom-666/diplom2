@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 
 class RestaurantRoute : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,10 +13,17 @@ class RestaurantRoute : AppCompatActivity() {
         setContentView(R.layout.activity_restaurant_route)
 
         val makeRoute = findViewById<Button>(R.id.make_route)
+        val latitude = intent.getStringExtra("latitude")
+        val longitude = intent.getStringExtra("longitude")
 
         makeRoute.setOnClickListener {
             val resultIntent = Intent()
+
             resultIntent.putExtra("action", "make_route")
+
+            resultIntent.putExtra("latitude", latitude)
+            resultIntent.putExtra("longitude", longitude)
+
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
 
 @Suppress("DEPRECATION")
@@ -22,13 +23,6 @@ class QrCode : AppCompatActivity() {
             intentIntegrator.initiateScan()
         }
 
-        val fakeScan = findViewById<Button>(R.id.fake_scan)
-        fakeScan.setOnClickListener {
-            val intent = Intent(this, ResMain::class.java)
-            intent.putExtra("table number", "1")
-            intent.putExtra("type", "qrcode")
-            startActivity(intent)
-        }
 
         val cannotScan = findViewById<TextView>(R.id.cannot_scan)
         cannotScan.setOnClickListener {
@@ -45,12 +39,10 @@ class QrCode : AppCompatActivity() {
         if (intentResult != null) {
             val contents = intentResult.contents
             if (contents != null) {
-                var tableNumber = ""
-                for (i in 0.. contents.length) {
-                    if (i > 12) {
-                        tableNumber += contents[i]
-                    }
-                }
+
+
+                var tableNumber = contents.replace("table number ", "").trim()
+
                 val intent = Intent(this, ResMain::class.java)
                 intent.putExtra("table number", tableNumber)
                 intent.putExtra("type", "qrcode")

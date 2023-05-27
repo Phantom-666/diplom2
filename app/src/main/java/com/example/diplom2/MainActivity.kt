@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import com.yandex.mapkit.MapKitFactory
 
-//TODO: Проложить путь
-//TODO: Check scan
-
 class MainActivity : AppCompatActivity() {
 //    private fun addToDatabase() {
         //        val firebase = FirebaseDatabase.getInstance().getReference("dessert")
@@ -30,9 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         MapKitFactory.setApiKey("22f07aaf-73dd-49eb-8908-b44fa12347c4")
+        MapKitFactory.initialize(this)
+        setContentView(R.layout.activity_main)
+
+
         val mapButton = findViewById<Button>(R.id.map_button)
 
         mapButton.setOnClickListener {
