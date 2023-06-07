@@ -12,6 +12,7 @@ class SpecifyAddress : AppCompatActivity() {
         setContentView(R.layout.activity_specify_address)
 
         val price = intent.getStringExtra("price")!!
+        val cart = intent.getStringExtra("cart")!!
 
         val submitAddressButton = findViewById<Button>(R.id.submitAddressButton)
 
@@ -24,6 +25,7 @@ class SpecifyAddress : AppCompatActivity() {
             intent.putExtra("price", price)
             intent.putExtra("address", address)
             intent.putExtra("type", "home")
+            intent.putExtra("cart", cart)
 
             startActivity(intent)
         }

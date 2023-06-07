@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 
@@ -19,6 +20,7 @@ class ResMain : AppCompatActivity() {
         "Салаты",
         "Десерты"
     )
+    private var tableName : String? = null
 
     private lateinit var type :String
 
@@ -28,7 +30,7 @@ class ResMain : AppCompatActivity() {
         setContentView(R.layout.activity_res_main)
 
         type = intent.getStringExtra("type")!!
-        val tableName = intent.getStringExtra("table number")
+        tableName = intent.getStringExtra("table number")
         val tableNameTextView= findViewById<TextView>(R.id.table_name)
 
         val robotDelivery = findViewById<LinearLayout>(R.id.robot_delivery)
@@ -91,55 +93,146 @@ class ResMain : AppCompatActivity() {
             cartItems.add(itemToAdd)
             cartAdapter.notifyDataSetChanged()
         }
+
+
+
+
     }
 
     private var fullPrice= 0
 
 
+    private val cart = mutableListOf<String>()
+    private val prices = mutableListOf<Int>()
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-//                val name = data?.getStringExtra("name")
+
+            val actionType = data?.getStringExtra("action")!!
+
+            if (actionType == "add") {
+                val name = data?.getStringExtra("name")!!
                 val price = data?.getStringExtra("price")!!.toInt()
                 val cartItems = mutableListOf<String>()
 
                 fullPrice += price
 
+                cart.add(name)
+                prices.add(price)
 
                 val cartListView = findViewById<ListView>(R.id.cartListView)
                 val checkoutButton = findViewById<Button>(R.id.checkoutButton)
 
                 val cartAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cartItems)
-
                 cartListView.adapter = cartAdapter
 
                 val itemToAdd = "Заказ на $fullPrice₽"
                 cartItems.add(itemToAdd)
                 cartAdapter.notifyDataSetChanged()
 
+
+
                 checkoutButton.setOnClickListener {
-                    cartItems.clear()
-                    cartAdapter.notifyDataSetChanged()
+//                    cartItems.clear()
+//                    cartAdapter.notifyDataSetChanged()
 
                     if (type == "home") {
                         val intent = Intent(this, SpecifyAddress::class.java)
                         intent.putExtra("price", fullPrice.toString())
+                        intent.putExtra("cart", cart.joinToString(", "))
+                        intent.putExtra("type", type)
                         startActivity(intent)
-
                     }
                     else
                     {
                         val intent = Intent(this, Checkout::class.java)
                         intent.putExtra("price", fullPrice.toString())
+                        intent.putExtra("cart", cart.joinToString(", "))
+                        intent.putExtra("table number", tableName)
+                        intent.putExtra("type", "restaurant")
 
                         startActivity(intent)
                     }
 
 
                 }
+
+                cartListView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+                    val intent = Intent(this, Cart::class.java)
+
+                    intent.putExtra("cart", cart.joinToString(", "))
+                    intent.putExtra("prices", prices.joinToString(", "))
+
+                    startActivityForResult(intent, 0)
+                }
+
+            }
+            else if (actionType == "delete") {
+
+                val name = data?.getStringExtra("name")!!
+                val price = data?.getStringExtra("price")!!.toInt()
+                val cartItems = mutableListOf<String>()
+
+                fullPrice -= price
+
+
+                var findex = -1
+
+                for (index in cart.indices) {
+                    if (cart[index] == name) {
+                        findex = index
+                        break
+                    }
+                }
+
+                cart.removeAt(findex)
+                prices.removeAt(findex)
+
+
+                val cartListView = findViewById<ListView>(R.id.cartListView)
+                val checkoutButton = findViewById<Button>(R.id.checkoutButton)
+
+                val cartAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cartItems)
+                cartListView.adapter = cartAdapter
+
+                val itemToAdd = "Заказ на $fullPrice₽"
+                cartItems.add(itemToAdd)
+                cartAdapter.notifyDataSetChanged()
+
+
+
+                checkoutButton.setOnClickListener {
+//                    cartItems.clear()
+//                    cartAdapter.notifyDataSetChanged()
+
+
+                    if (type == "home") {
+                        val intent = Intent(this, SpecifyAddress::class.java)
+                        intent.putExtra("price", fullPrice.toString())
+                        intent.putExtra("cart", cart.joinToString(", "))
+                        intent.putExtra("type", type)
+
+                        startActivity(intent)
+                    }
+                    else
+                    {
+                        val intent = Intent(this, Checkout::class.java)
+                        intent.putExtra("price", fullPrice.toString())
+                        intent.putExtra("cart", cart.joinToString(", "))
+
+                        startActivity(intent)
+                    }
+
+
+                }
+
+
+            }
+
+
 
 
         }

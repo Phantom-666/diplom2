@@ -61,6 +61,7 @@ class Menu : AppCompatActivity() {
             val resultIntent = Intent()
             resultIntent.putExtra("name", name)
             resultIntent.putExtra("price", price.toString())
+            resultIntent.putExtra("action", "add")
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }

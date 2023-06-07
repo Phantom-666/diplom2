@@ -40,6 +40,11 @@ import com.yandex.runtime.network.RemoteError
 import android.graphics.PointF
 import android.util.Log
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.yandex.mapkit.RequestPoint
 import com.yandex.mapkit.RequestPointType
 import com.yandex.mapkit.directions.DirectionsFactory
@@ -102,11 +107,73 @@ class Map : AppCompatActivity()
         mapObjects = mapview.map.mapObjects.addCollection()
         mapview.map.mapObjects.addTapListener(tabListener)
 
+//        val firebase = FirebaseDatabase.getInstance().getReference("locations")
+
+//        val targetLocations = mutableListOf<Point>()
+//        var targetLocationsStatus = false
+//
+//        firebase.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                if (snapshot.exists() && snapshot.hasChildren()) {
+//
+//                    for (location in snapshot.children) {
+//                        val splitted = location.value.toString().replace("{", "").replace("}", "").split(", ")
+//
+//                        var id = ""
+//                        var latitude = -1.0
+//                        var longitude = -1.0
+//
+//                        for (s in splitted) {
+//
+//                            if (s.contains("id")) {
+//                                id = s.replace("id=", "")
+//                            }
+//                            else if (s.contains("latitude")) {
+//                                latitude = s.replace("latitude=", "").toDouble()
+//                            }
+//                            else if (s.contains("longitude")) {
+//                                longitude = s.replace("longitude=", "").toDouble()
+//                            }
+//
+//                        }
+//                        Toast.makeText(this@Map, "latitude ${latitude}, longitude ${longitude}", Toast.LENGTH_LONG).show()
+//
+//                        val l = LocationClass(id, latitude, longitude)
+//
+//                        targetLocations.add(Point(latitude, longitude))
+//
+////                        val bitmap = this@Map.getBitmapFromVectorDrawable(R.drawable.res_trans_50)
+////                        this@Map.placemark = mapview.map.mapObjects.addPlacemark(Point(l.latitude, l.longitude), ImageProvider.fromBitmap(bitmap))
+////                        this@Map.placemark.addTapListener(this@Map.tabListener)
+//
+////                        Log.d("Location1", location.value.toString())
+//                    }
+//
+//                    targetLocationsStatus = true
+////                    for (t in targetLocations) {
+////                        Log.d("Marker Location", "${t.latitude} ${t.longitude}")
+//////                        val bitmap = this@Map.getBitmapFromVectorDrawable(R.drawable.res_trans_50)
+//////                        this@Map.placemark = mapview.map.mapObjects.addPlacemark(t, ImageProvider.fromBitmap(bitmap))
+//////                        this@Map.placemark.addTapListener(this@Map.tabListener)
+////                    }
+//
+//
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d("Marker1", "Not implemented")
+//            }
+//        })
+
+
+
+
         val targetLocations = mutableListOf<Point>(
             Point(55.639369, 51.810729),
             Point(55.638079, 51.803866)
         )
-
         for (t in targetLocations) {
 
             val bitmap = this.getBitmapFromVectorDrawable(R.drawable.res_trans_50)
@@ -115,7 +182,9 @@ class Map : AppCompatActivity()
         }
 
 
+
         drivingRouter = DirectionsFactory.getInstance().createDrivingRouter()
+
     }
 
     override fun onStop() {

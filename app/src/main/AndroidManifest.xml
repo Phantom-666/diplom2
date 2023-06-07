@@ -17,6 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Diplom2">
         <activity
+            android:name=".Cart"
+            android:exported="false" />
+        <activity
+            android:name=".ReserveFinish"
+            android:exported="false" />
+        <activity
+            android:name=".ReserveName"
+            android:exported="false" />
+        <activity
+            android:name=".ReserveTable"
+            android:exported="false" />
+        <activity
             android:name=".Orders"
             android:exported="false" />
         <activity

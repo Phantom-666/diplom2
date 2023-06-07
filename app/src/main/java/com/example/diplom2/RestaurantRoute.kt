@@ -34,6 +34,13 @@ class RestaurantRoute : AppCompatActivity() {
             intent.putExtra("type", "home")
             startActivity(intent)
         }
+
+        val reserveTableButton = findViewById<Button>(R.id.reserveTableButton)
+
+        reserveTableButton.setOnClickListener{
+            val intent = Intent(this, ReserveTable::class.java)
+            startActivity(intent)
+        }
     }
 
 
